@@ -6,7 +6,7 @@ function Cats() {
     useEffect(() => { 
         async function fetchCats() {
             setCats([]);
-            const data = await API(10);
+            const data = await API(21);
             if (!ignore) {
                 setCats(data);
             }
