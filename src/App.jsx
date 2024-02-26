@@ -4,7 +4,7 @@ import Cats from './components/Cats'
 function App() {
   return (
     <>
-      <Cats></Cats>
+      <Cats/>
     </>
   )
 }

@@ -1,14 +1,14 @@
 import React, {useState, useEffect } from "react";
 import API from "./API";
 function Cats() {
-    const [catData, setCatData] = useState([])
+    const [cats, setCats] = useState([])
 
     useEffect(() => { 
         async function fetchCats() {
-            setCatData([]);
+            setCats([]);
             const data = await API(10);
             if (!ignore) {
-                setCatData(data);
+                setCats(data);
             }
         }
         let ignore = false;
@@ -20,9 +20,9 @@ function Cats() {
 
     return (
         <>
-            {catData.map((cat) => (
-                <img key={cat.id} src={cat.url}/>
-            ))}
+        {cats.map((cat) => (
+            <img key={cat.id} src={cat.url} style={{width: "250px", height: "400px"}}/>
+        ))}
         </>
     )
 }
