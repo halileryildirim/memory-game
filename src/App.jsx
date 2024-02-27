@@ -4,7 +4,7 @@ import GameCards from './components/GameCards'
 function App() {
   return (
     <>
-      <GameCards cardNumber={7} />
+      <GameCards cardNumber={15} />
     </>
   )
 }
