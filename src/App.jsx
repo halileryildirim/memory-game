@@ -1,10 +1,10 @@
 import './App.css'
-import Cats from './components/Cats'
+import GameCards from './components/GameCards'
 
 function App() {
   return (
     <>
-      <Cats/>
+      <GameCards cardNumber={7} />
     </>
   )
 }
