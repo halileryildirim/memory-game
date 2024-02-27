@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useSyncExternalStore } from "react";
+import React, {useState, useEffect } from "react";
 import API from "./API";
 function GameCards({cardNumber = 7}) {
     const [cats, setCats] = useState([])
@@ -30,16 +30,15 @@ function GameCards({cardNumber = 7}) {
          return array;
      }
 
-    function handleShuffle() {
-        setCats(deckShuffle([...cats]));
+    function handleGameplay(id) {
+        setCats(deckShuffle([...cats]))
+        // console.log(id); its working for picked swap
     }
 
     return (
         <div className="cards">
             {cats.map((cat) => (
-                <div onClick={handleShuffle} key={cat.id}>
-                    <img src={cat.url} style={{width: "250px", height: "400px"}}/>
-                </div>
+                <img onClick={() => handleGameplay(cat.id)} key={cat.id} src={cat.url} style={{width: "250px", height: "400px"}}/>
             ))} 
         </div>
     );
