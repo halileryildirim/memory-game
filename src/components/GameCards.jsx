@@ -3,6 +3,7 @@ import API from "./API";
 function GameCards({cardNumber = 7}) {
     const [cats, setCats] = useState([])
     const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(score);
 
     useEffect(() => { 
         async function fetchCats() {
@@ -35,7 +36,10 @@ function GameCards({cardNumber = 7}) {
     function handleGameplay(id) {
         const catID = cats.findIndex((cat) =>  cat.id === id )
         if (cats[catID].picked === true) {
-             alert(`Game Over, Your Score: ${score}`)
+            alert(`Game Over`);
+            setBestScore(score);
+            setScore(0);
+            setCats([]);
         }
         else {
             cats[catID].picked = true;
@@ -45,11 +49,17 @@ function GameCards({cardNumber = 7}) {
     }
 
     return (
-        <div className="cards">
-            {cats.map((cat) => (
-                <img onClick={() => handleGameplay(cat.id)} key={cat.id} src={cat.url} style={{width: "250px", height: "400px"}}/>
-            ))} 
-        </div>
+        <>
+            <div className="container">
+                {cats.filter((cat, index)=> index < 6).map((cat) => (
+                    <img className="cards" onClick={() => handleGameplay(cat.id)} key={cat.id} src={cat.url}/>
+                ))}
+            </div>
+            <h1 className="score">Score: {score}</h1>
+            <h1 className="best-score">Best Score: {bestScore} </h1>
+        </>
+
+        
     );
 }
 
