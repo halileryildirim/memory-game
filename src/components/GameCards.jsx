@@ -2,6 +2,7 @@ import React, {useState, useEffect } from "react";
 import API from "./API";
 function GameCards({cardNumber = 7}) {
     const [cats, setCats] = useState([])
+    const [score, setScore] = useState(0);
 
     useEffect(() => { 
         async function fetchCats() {
@@ -18,21 +19,29 @@ function GameCards({cardNumber = 7}) {
         }
     }, [cardNumber])
     
-     function deckShuffle(array) {
-         let m = array.length, t, i;
+    function deckShuffle(array) {
+        let m = array.length, t, i;
 
-         while (m) {
-             i = Math.floor(Math.random() * m--);
-             t = array[m]
-             array[m] = array[i];
-             array[i] = t;
-         }
-         return array;
-     }
+        while (m) {
+            i = Math.floor(Math.random() * m--);
+            t = array[m]
+            array[m] = array[i];
+            array[i] = t;
+        }
+        return array;
+    }
+
 
     function handleGameplay(id) {
-        setCats(deckShuffle([...cats]))
-        // console.log(id); its working for picked swap
+        const catID = cats.findIndex((cat) =>  cat.id === id )
+        if (cats[catID].picked === true) {
+             alert(`Game Over, Your Score: ${score}`)
+        }
+        else {
+            cats[catID].picked = true;
+            setScore(score => score + 1);
+            setCats(deckShuffle([...cats]));
+        } 
     }
 
     return (
