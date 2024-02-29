@@ -12,7 +12,7 @@ miyav
 */
 
 
-function GameCards({cardNumber = 7}) {
+function GameCards() {
     const [cats, setCats] = useState([])
     const [score, setScore] = useState(0);
     const [bestScore, setBestScore] = useState(score);
@@ -20,7 +20,7 @@ function GameCards({cardNumber = 7}) {
     useEffect(() => { 
         async function fetchCats() {
             setCats([]);
-            const data = await API(cardNumber);
+            const data = await API();
             if (!ignore) {
                 setCats(data);
             }
@@ -30,7 +30,7 @@ function GameCards({cardNumber = 7}) {
         return () => {
             ignore = true;
         }
-    }, [cardNumber])
+    }, [])
     
     function deckShuffle(array) {
         let m = array.length, t, i;
@@ -69,7 +69,7 @@ function GameCards({cardNumber = 7}) {
                     <img className="cards" onClick={() => handleGameplay(cat.id)} key={cat.id} src={cat.url}/>
                 ))}
             </div>
-            <h1 className="score">Score: {score}</h1>
+            <h1 className="score">Score: {score} </h1>
             <h1 className="best-score">Best Score: {bestScore} </h1>
         </>
 
