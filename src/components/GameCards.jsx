@@ -3,7 +3,6 @@ import API from "./API";
 
 /*
 Çalışıyor ama olması gereken bu değil, score handling için kendi componentini yaz, 
-Oyun başlarken input alıp ona göre data çeken component ekle.
 Game over, try again componenti ekle.
 Kart css'ini tekrar ayarla.
 
@@ -13,11 +12,11 @@ miyav
 
 
 function GameCards() {
-    const [cats, setCats] = useState([])
-    const [score, setScore] = useState(0);
-    const [bestScore, setBestScore] = useState(score);
+    const [cats, setCats] = React.useState([])
+    const [score, setScore] = React.useState(0);
+    const [bestScore, setBestScore] = React.useState(score);
 
-    useEffect(() => { 
+    React.useEffect(() => { 
         async function fetchCats() {
             setCats([]);
             const data = await API();
@@ -30,7 +29,7 @@ function GameCards() {
         return () => {
             ignore = true;
         }
-    }, [])
+    }, [bestScore])
     
     function deckShuffle(array) {
         let m = array.length, t, i;
@@ -51,9 +50,12 @@ function GameCards() {
             alert(`Game Over`);
             if (score > bestScore) {
                 setBestScore(score);
+                setScore(0);
             }
-            setScore(0);
-            setCats([]);
+            else {
+                setBestScore(bestScore);
+                setScore(0);
+            }
         }
         else {
             cats[catID].picked = true;
