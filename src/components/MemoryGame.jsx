@@ -1,4 +1,5 @@
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Card from "./Card"
 import API from "./API";
 
 function MemoryGame() {
@@ -55,8 +56,8 @@ function MemoryGame() {
     return (
         <>
             <div className="container">
-                {cats.filter((cat, index)=> index < 6).map((cat) => (
-                    <img className="cards" onClick={() => handleGameplay(cat.id)} key={cat.id} src={cat.url}/>
+                {cats.slice(0, 5).map((cat) => (
+                    <Card key={cat.id} cat={cat} onClick={() => handleGameplay(cat.id)} />
                 ))}
             </div>
             <h1 className="score">Score: {score} </h1>
