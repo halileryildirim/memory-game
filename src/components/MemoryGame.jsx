@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Card from "./Card"
 import API from "./API";
+import Scoreboard from "./Scoreboard";
 
 function MemoryGame() {
-    const [cats, setCats] = React.useState([])
-    const [score, setScore] = React.useState(0);
-    const [bestScore, setBestScore] = React.useState(score);
+    const [cats, setCats] = useState([])
+    const [score, setScore] = useState(0);
+    const [bestScore, setBestScore] = useState(score);
 
-    React.useEffect(() => { 
+    useEffect(() => { 
+
         async function fetchCats() {
             setCats([]);
             const data = await API();
@@ -15,11 +17,14 @@ function MemoryGame() {
                 setCats(data);
             }
         }
+
         let ignore = false;
         fetchCats();
+
         return () => {
             ignore = true;
         }
+
     }, [bestScore])
     
     function deckShuffle(array) {
@@ -60,8 +65,7 @@ function MemoryGame() {
                     <Card key={cat.id} cat={cat} onClick={() => handleGameplay(cat.id)} />
                 ))}
             </div>
-            <h1 className="score">Score: {score} </h1>
-            <h1 className="best-score">Best Score: {bestScore} </h1>
+            <Scoreboard score={score} bestScore={bestScore}/>
         </>
 
         
