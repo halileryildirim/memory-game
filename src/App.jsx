@@ -1,10 +1,10 @@
 import './App.css'
-import GameCards from './components/GameCards'
+import MemoryGame from './components/MemoryGame'
 
 function App() {
   return (
       <>
-        <GameCards/>
+        <MemoryGame/>
       </>    
     )
 }

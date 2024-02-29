@@ -1,17 +1,7 @@
 import React, {useState, useEffect } from "react";
 import API from "./API";
 
-/*
-Çalışıyor ama olması gereken bu değil, score handling için kendi componentini yaz, 
-Game over, try again componenti ekle.
-Kart css'ini tekrar ayarla.
-
-Bi de neden kediler bu kadar yavaş yükleniyo öğren ve ÇÖZ.
-miyav
-*/
-
-
-function GameCards() {
+function MemoryGame() {
     const [cats, setCats] = React.useState([])
     const [score, setScore] = React.useState(0);
     const [bestScore, setBestScore] = React.useState(score);
@@ -43,18 +33,16 @@ function GameCards() {
         return array;
     }
 
-
     function handleGameplay(id) {
         const catID = cats.findIndex((cat) =>  cat.id === id )
         if (cats[catID].picked === true) {
-            alert(`Game Over`);
             if (score > bestScore) {
                 setBestScore(score);
                 setScore(0);
             }
             else {
-                setBestScore(bestScore);
                 setScore(0);
+                setBestScore(bestScore);
             }
         }
         else {
@@ -79,4 +67,4 @@ function GameCards() {
     );
 }
 
-export default GameCards;
+export default MemoryGame;
