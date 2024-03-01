@@ -1,8 +1,8 @@
 function Scoreboard({ score, bestScore }) {
     return (
         <>
-            <h2 className="score">Score: {score} </h2>
-            <h2 className="best-score">Best Score: {bestScore} </h2>
+            <h1 className="score">Current Score: {score} </h1>
+            <h1 className="best-score">Best Score: {bestScore} </h1>
         </>
     )
 }

@@ -8,25 +8,29 @@ function MemoryGame() {
     const [cats, setCats] = useState([])
     const [score, setScore] = useState(0);
     const [bestScore, setBestScore] = useState(score);
+    const [loading, setLoading] = useState(true);
+    const [gameOver, setGameOver] = useState(false);
 
-    useEffect(() => { 
 
+    useEffect(() => {
         async function fetchCats() {
             setCats([]);
+            setLoading(true);
             const data = await API();
             if (!ignore) {
                 setCats(data);
+                setLoading(false);
+                setGameOver(false);
             }
         }
 
         let ignore = false;
         fetchCats();
-
         return () => {
             ignore = true;
         }
+    }, [gameOver])
 
-    }, [bestScore])
     
     function deckShuffle(array) {
         let m = array.length, t, i;
@@ -43,6 +47,7 @@ function MemoryGame() {
     function handleGameplay(id) {
         const catID = cats.findIndex((cat) =>  cat.id === id )
         if (cats[catID].picked === true) {
+            setGameOver(true);
             if (score > bestScore) {
                 setBestScore(score);
                 setScore(0);
@@ -63,9 +68,13 @@ function MemoryGame() {
         <>  
             <Info/>
             <div className="container">
-                {cats.slice(0, 5).map((cat) => (
-                    <Card key={cat.id} cat={cat} onClick={() => handleGameplay(cat.id)} />
-                ))}
+                {loading ? (
+                    <h1>Catching New Cats...</h1>
+                ) : (
+                    cats.slice(0, 5).map((cat) => (
+                        <Card key={cat.id} cat={cat} onClick={() => handleGameplay(cat.id)} />
+                    ))
+                )}
             </div>
             <Scoreboard score={score} bestScore={bestScore}/>
         </>
