@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Info from "./Info";
 import Card from "./Card"
 import API from "./API";
 import Scoreboard from "./Scoreboard";
@@ -59,7 +60,8 @@ function MemoryGame() {
     }
 
     return (
-        <>
+        <>  
+            <Info/>
             <div className="container">
                 {cats.slice(0, 5).map((cat) => (
                     <Card key={cat.id} cat={cat} onClick={() => handleGameplay(cat.id)} />
